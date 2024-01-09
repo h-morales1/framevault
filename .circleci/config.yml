@@ -6,6 +6,7 @@ jobs:
       - image: cirrusci/flutter
     steps:
       - checkout
+      - run: flutter channel beta
       - run: flutter upgrade
       - run: flutter doctor
       - run: flutter test
