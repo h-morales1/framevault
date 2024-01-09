@@ -6,6 +6,7 @@ jobs:
       - image: cirrusci/flutter:3.3.2
     steps:
       - checkout
+      - run: flutter --version
       - run: flutter doctor
       - run: flutter test
       - run: flutter build apk --release
