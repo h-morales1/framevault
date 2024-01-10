@@ -1,33 +1,20 @@
-version: 2.1
-
+version: '2.1'
 orbs:
   android: circleci/android@1.0.3
   flutter: circleci/flutter@2.0.0
-
 jobs:
-  build:
+  distribute:
     executor:
       name: android/android-machine
-      resource-class: medium
-
     steps:
-      - checkout
-
-      - flutter/install_sdk:
-          version: 3.7.9
-
-      - flutter/install_pub:
-          cache-version: v1
-
+      - flutter/install_sdk_and_pub:
+          version: 3.0.3
+      - flutter/install_android_gradle_dependencies
+      - flutter/install_android_gem
       - run:
-          name: Flutter pub get
-          command: |
-            flutter pub get
-
-      - run:
-          name: Build APK
-          command: |
-            flutter build apk
-
-      - store_artifacts:
-          path: build/app/outputs/flutter-apk/app-release.apk
+          command: bundle exec fastlane distribute
+          working_directory: ios
+workflows:
+  distribute:
+    jobs:
+      - distribute
