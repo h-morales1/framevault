@@ -39,7 +39,7 @@ workflows:
           type: approval
           filters:
             branches:
-              only: main
+              only: master
       - android-deployment:
           requires:
             - build-approval
