@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frame_vault/db/db_handler.dart';
+import 'package:frame_vault/screens/add_product.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Prototype3'),
     );
   }
 }
@@ -55,7 +58,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
   int _counter = 0;
+  List<Map<String, dynamic>> _tester = [];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddProduct()),
+    );
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -115,11 +130,32 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: BottomNavigationBar (
+        type: BottomNavigationBarType.fixed,
+        items:[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline),
+            label: "Add Item",
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.edit_note),
+            label: "Archive",
+          ),
+
+           BottomNavigationBarItem(
+           icon: Icon(Icons.file_copy),
+           label: "Export",
+         )
+
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
