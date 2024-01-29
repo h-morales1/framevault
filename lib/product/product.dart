@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Product {
-  String? id;
+  String id = "0";
   String? name;
   String? medium;
   String? purchasePrice;
