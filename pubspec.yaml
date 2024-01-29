@@ -38,6 +38,7 @@ dependencies:
   sqflite: ^2.3.0
 
 dev_dependencies:
+  sqflite_common_ffi:
   flutter_test:
     sdk: flutter
   test: ^1.24.9
