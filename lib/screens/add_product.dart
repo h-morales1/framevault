@@ -90,7 +90,8 @@ class AddProduct extends StatelessWidget {
           CheckboxListTile(
             title: const Text("Framed"),
             value: isChecked,
-            onChanged: (bool? value) { isChecked = value!;},
+            onChanged: (bool? value) {
+            },
           ),
 
           CheckboxListTile(
@@ -117,6 +118,19 @@ class AddProduct extends StatelessWidget {
                    ),
                  ),
                ),
+               SizedBox(
+                width: 20.0,
+               ),
+               SizedBox(
+                 width: 60.0,
+                 child: TextField(
+                   textAlign: TextAlign.center,
+                   decoration: InputDecoration(
+                     hintText: "W",
+                     border: OutlineInputBorder(),
+                   ),
+                 ),
+               ),
 
              ],
            ),
@@ -132,6 +146,11 @@ class AddProduct extends StatelessWidget {
              hintText: "Note",
            ),
          ),
+
+          SizedBox(
+            height: 40.0,
+          ),
+          ElevatedButton(onPressed: () => {}, child: Text("Save Product")),
 
         ],
       ),
