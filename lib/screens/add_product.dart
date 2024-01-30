@@ -87,11 +87,20 @@ class AddProduct extends StatelessWidget {
             ),
           ),
 
+
+          SizedBox(
+            height: 20.0,
+          ),
+
           CheckboxListTile(
             title: const Text("Framed"),
             value: isChecked,
             onChanged: (bool? value) {
             },
+          ),
+
+           SizedBox(
+            height: 20.0,
           ),
 
           CheckboxListTile(
@@ -100,10 +109,18 @@ class AddProduct extends StatelessWidget {
             onChanged: (bool? value) { isChecked = value!;},
           ),
 
+          SizedBox(
+            height: 20.0,
+          ),
+
           CheckboxListTile(
             title: const Text("On Web Store"),
             value: isChecked,
             onChanged: (bool? value) { isChecked = value!;},
+          ),
+
+           SizedBox(
+            height: 20.0,
           ),
 
            Row(
@@ -131,6 +148,19 @@ class AddProduct extends StatelessWidget {
                    ),
                  ),
                ),
+               SizedBox(
+                 width: 20.0,
+               ),
+               SizedBox(
+                 width: 60.0,
+                 child: TextField(
+                   textAlign: TextAlign.center,
+                   decoration: InputDecoration(
+                     hintText: "D",
+                     border: OutlineInputBorder(),
+                   ),
+                 ),
+               ),
 
              ],
            ),
@@ -150,6 +180,34 @@ class AddProduct extends StatelessWidget {
           SizedBox(
             height: 40.0,
           ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(onPressed: () => {},
+              iconSize: 40.0,
+                  icon: Icon(Icons.camera),
+              ),
+              SizedBox(
+                width: 40.0,
+              ),
+              IconButton(onPressed: () => {},
+              iconSize: 40.0,
+                  icon: Icon(Icons.folder),
+              ),
+            ],
+          ),
+
+          SizedBox(
+            height: 40.0,
+          ),
+
+          ElevatedButton(onPressed: () => {}, child: Text("Archive Product")),
+
+          SizedBox(
+            height: 40.0,
+          ),
+
           ElevatedButton(onPressed: () => {}, child: Text("Save Product")),
 
         ],
