@@ -8,7 +8,3 @@ jobs:
       - checkout
       - run: flutter doctor
       - run: flutter test
-      - run: flutter build apk --release
-      - store_artifacts:
-          path: /home/mobiledevops/project/build/app/outputs/flutter-apk/app-release.apk
-          destination: artifact-file
