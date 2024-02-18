@@ -102,13 +102,18 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body:
-      Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: ListView(
-
-        ),
+          ListView.builder(
+            itemCount: 1,
+            itemBuilder: (context, index) => Card(
+              color: Theme.of(context).cardColor,
+              margin: const EdgeInsets.all(15),
+      child: ListTile(
+        title: Text("Piece Title"),
+        leading: Text("Temp"),
       ),
+          ),
+          ),
+
       bottomNavigationBar: BottomNavigationBar (
         type: BottomNavigationBarType.fixed,
         items:[
