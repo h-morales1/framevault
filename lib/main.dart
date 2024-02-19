@@ -75,7 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _refreshEntries() async {
     final filler = await DbHandler.getProducts();
-    _data = filler;
+    setState(() {
+      _data = filler;
+    });
     debugPrint("data recieved: $_data");
   }
 
