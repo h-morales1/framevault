@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frame_vault/db/db_handler.dart';
 import 'package:frame_vault/screens/add_product.dart';
+import 'package:frame_vault/components/product_tile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -120,11 +121,11 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (context, index) => Card(
               color: Theme.of(context).cardColor,
               margin: const EdgeInsets.all(15),
-      child: ListTile(
-        title: Text(_data[index]['name']),
-        subtitle: Text("\$"+_data[index]['purchasePrice']),
-        trailing: Icon(Icons.business_center),
-        leading: Text("Temp"),
+      child: ProductTile(
+        name: _data[index]['name'],
+        sold: "True",
+        purchasePrice: _data[index]['purchasePrice'],
+        picturePath: "Temp",
       ),
           ),
           ),
