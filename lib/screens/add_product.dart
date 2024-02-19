@@ -5,6 +5,8 @@ import 'package:frame_vault/db/db_handler.dart';
 import 'package:frame_vault/product/product.dart';
 import 'package:frame_vault/cropper/image_helper.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AddProduct extends StatefulWidget {
   @override
@@ -18,6 +20,7 @@ class _AddProductState extends State<AddProduct> {
   bool isFramed = false; // isProduct framed
   bool isSold = false; // is product sold
   bool isOnWebStore = false; // is product on webstore
+  String prodImagPath = "";
   File? _image;
 
   final TextEditingController _nameController = TextEditingController();
@@ -40,6 +43,7 @@ class _AddProductState extends State<AddProduct> {
     prodSave.creationDate = _creationDateController.text;
     prodSave.note = _noteController.text;
     prodSave.categories = _categoriesController.text;
+    prodSave.picturePath = prodImagPath;
 
     DbHandler.createProduct(prodSave);
   }
@@ -197,14 +201,19 @@ class _AddProductState extends State<AddProduct> {
               IconButton(
                 onPressed: () async {
                   final files = await imageHelper.pickImage();
+                  final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
                   if(files.isNotEmpty) {
                     final croppedFile = await imageHelper.crop(
                       file: files.first,
                       cropStyle: CropStyle.rectangle,
                     );
                     if(croppedFile != null) {
+                      //final stors = File(croppedFile.path).copy(appDocumentsDir.path);
                       setState(() {
                         _image = File(croppedFile.path);
+                        _image?.copy("${appDocumentsDir.path}/${_nameController.text}_img.jpg");
+                        prodImagPath = "${appDocumentsDir.path}/${_nameController.text}_img.jpg";
+                        debugPrint("path: ${croppedFile.path}");
                       });
                     }
                   }
