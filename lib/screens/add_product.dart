@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frame_vault/db/db_handler.dart';
 import 'package:frame_vault/product/product.dart';
 
 class AddProduct extends StatefulWidget {
@@ -7,7 +8,34 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  bool isChecked = false; // This state will be managed by the widget
+  List<Map<String, dynamic>> _data = [];
+  bool isFramed = false; // isProduct framed
+  bool isSold = false; // is product sold
+  bool isOnWebStore = false; // is product on webstore
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _mediumController= TextEditingController();
+  final TextEditingController _purchasePriceController= TextEditingController();
+  final TextEditingController _locationController= TextEditingController();
+  final TextEditingController _purchaseDateController= TextEditingController();
+  final TextEditingController _creationDateController= TextEditingController();
+  final TextEditingController _noteController= TextEditingController();
+  final TextEditingController _categoriesController= TextEditingController();
+
+  Future<void> _saveProduct() async {
+    //
+    Product prodSave = Product();
+    prodSave.name = _nameController.text;
+    prodSave.medium = _mediumController.text;
+    prodSave.purchasePrice = _purchasePriceController.text;
+    prodSave.location = _locationController.text;
+    prodSave.purchaseDate = _purchaseDateController.text;
+    prodSave.creationDate = _creationDateController.text;
+    prodSave.note = _noteController.text;
+    prodSave.categories = _categoriesController.text;
+
+    DbHandler.createProduct(prodSave);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +48,7 @@ class _AddProductState extends State<AddProduct> {
         children: [
           TextField(
             key: ValueKey('nameKey'),
+            controller: _nameController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Name",
@@ -27,6 +56,7 @@ class _AddProductState extends State<AddProduct> {
           ),
           SizedBox(height: 20.0),
           TextField(
+            controller: _mediumController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Medium",
@@ -34,6 +64,7 @@ class _AddProductState extends State<AddProduct> {
           ),
           SizedBox(height: 20.0),
           TextField(
+            controller: _purchasePriceController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Purchase Price",
@@ -41,6 +72,7 @@ class _AddProductState extends State<AddProduct> {
           ),
           SizedBox(height: 20.0),
           TextField(
+            controller: _locationController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Location",
@@ -48,6 +80,7 @@ class _AddProductState extends State<AddProduct> {
           ),
           SizedBox(height: 20.0),
           TextField(
+            controller: _purchaseDateController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Purchase Date",
@@ -55,6 +88,7 @@ class _AddProductState extends State<AddProduct> {
           ),
           SizedBox(height: 20.0),
           TextField(
+            controller: _creationDateController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Creation Date",
@@ -62,6 +96,7 @@ class _AddProductState extends State<AddProduct> {
           ),
           SizedBox(height: 20.0),
           TextField(
+            controller: _noteController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Note",
@@ -70,30 +105,30 @@ class _AddProductState extends State<AddProduct> {
           SizedBox(height: 20.0),
           CheckboxListTile(
             title: const Text("Framed"),
-            value: isChecked,
+            value: isFramed,
             onChanged: (bool? value) {
               setState(() {
-                isChecked = value!;
+                isFramed = value!;
               });
             },
           ),
           SizedBox(height: 20.0),
           CheckboxListTile(
             title: const Text("Sold"),
-            value: isChecked,
+            value: isSold,
             onChanged: (bool? value) {
               setState(() {
-                isChecked = value!;
+                isSold = value!;
               });
             },
           ),
           SizedBox(height: 20.0),
           CheckboxListTile(
             title: const Text("On Web Store"),
-            value: isChecked,
+            value: isOnWebStore,
             onChanged: (bool? value) {
               setState(() {
-                isChecked = value!;
+                isOnWebStore= value!;
               });
             },
           ),
@@ -136,9 +171,10 @@ class _AddProductState extends State<AddProduct> {
           ),
           SizedBox(height: 20.0),
           TextField(
+            controller: _categoriesController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: "Note",
+              hintText: "Categories",
             ),
           ),
           SizedBox(height: 40.0),
@@ -165,7 +201,9 @@ class _AddProductState extends State<AddProduct> {
           ),
           SizedBox(height: 40.0),
           ElevatedButton(
-            onPressed: () => {},
+            onPressed: () => {
+              _saveProduct()
+            },
             child: Text("Save Product"),
           ),
         ],
