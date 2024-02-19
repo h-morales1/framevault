@@ -60,7 +60,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   int _counter = 0;
-  List<Map<String, dynamic>> _tester = [];
+  List<Map<String, dynamic>> _data = [];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -71,6 +71,19 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(builder: (context) => AddProduct()),
     );
   }
+
+  void _refreshEntries() async {
+    final filler = await DbHandler.getProducts();
+    _data = filler;
+    debugPrint("data recieved: $_data");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshEntries();
+  }
+
 
   void _incrementCounter() {
     setState(() {
@@ -103,12 +116,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body:
           ListView.builder(
-            itemCount: 1,
+            itemCount: _data.length,
             itemBuilder: (context, index) => Card(
               color: Theme.of(context).cardColor,
               margin: const EdgeInsets.all(15),
       child: ListTile(
-        title: Text("Piece Title"),
+        title: Text(_data[index]['name']),
+        subtitle: Text("\$"+_data[index]['purchasePrice']),
+        trailing: Icon(Icons.business_center),
         leading: Text("Temp"),
       ),
           ),
