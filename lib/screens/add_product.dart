@@ -1,17 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:frame_vault/db/db_handler.dart';
 import 'package:frame_vault/product/product.dart';
+import 'package:frame_vault/cropper/image_helper.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class AddProduct extends StatefulWidget {
   @override
   _AddProductState createState() => _AddProductState();
 }
 
+final imageHelper = ImageHelper();
+
 class _AddProductState extends State<AddProduct> {
   List<Map<String, dynamic>> _data = [];
   bool isFramed = false; // isProduct framed
   bool isSold = false; // is product sold
   bool isOnWebStore = false; // is product on webstore
+  File? _image;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _mediumController= TextEditingController();
@@ -188,7 +195,20 @@ class _AddProductState extends State<AddProduct> {
               ),
               SizedBox(width: 40.0),
               IconButton(
-                onPressed: () => {},
+                onPressed: () async {
+                  final files = await imageHelper.pickImage();
+                  if(files.isNotEmpty) {
+                    final croppedFile = await imageHelper.crop(
+                      file: files.first,
+                      cropStyle: CropStyle.rectangle,
+                    );
+                    if(croppedFile != null) {
+                      setState(() {
+                        _image = File(croppedFile.path);
+                      });
+                    }
+                  }
+                },
                 iconSize: 40.0,
                 icon: Icon(Icons.folder),
               ),
