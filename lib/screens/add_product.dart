@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:frame_vault/db/db_handler.dart';
+import 'package:frame_vault/main.dart';
 import 'package:frame_vault/product/product.dart';
 import 'package:frame_vault/cropper/image_helper.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -46,6 +47,11 @@ class _AddProductState extends State<AddProduct> {
     prodSave.picturePath = prodImagPath;
 
     DbHandler.createProduct(prodSave);
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Product saved")));
+    Navigator.push(
+        context,
+            MaterialPageRoute(builder: (context) => MyHomePage(title: "Prototype3")),
+    );
   }
 
   @override

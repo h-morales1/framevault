@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
         name: _data[index]['name'],
         sold: "True",
         purchasePrice: _data[index]['purchasePrice'],
-        picturePath: "Temp",
+        picturePath: _data[index]['picturePath'],
       ),
           ),
           ),

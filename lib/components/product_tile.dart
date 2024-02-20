@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 class ProductTile extends StatefulWidget {
   const ProductTile({required this.name, required this.sold, required this.purchasePrice, required this.picturePath, super.key});
@@ -19,7 +20,11 @@ class _ProductTileState extends State<ProductTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Text("Temp"),
+      leading: SizedBox(
+        width: 100,
+        height: 100,
+        child: _imageBuilder(),
+      ) ,
       title: Text(widget.name),
       subtitle: Row(
         children: [
@@ -33,4 +38,15 @@ class _ProductTileState extends State<ProductTile> {
 
     );
   }
+  Widget _imageBuilder() {
+  try {
+    debugPrint("this path: ${widget.picturePath}");
+    return Image.file(File(widget.picturePath));
+  } catch (e) {
+    debugPrint("Error loading image: $e");
+    debugPrint("error this path: ${widget.picturePath}");
+    return Icon(Icons.error);
+  }
 }
+}
+
