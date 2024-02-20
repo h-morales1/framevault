@@ -66,11 +66,26 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      debugPrint("index pressed: $index");
     });
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AddProduct()),
-    );
+    switch(index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyHomePage(title: "Prototype3")),
+        );
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddProduct()),
+       );
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyHomePage(title: "Prototype3")),
+      );
+    }
+
   }
 
   void _refreshEntries() async {
